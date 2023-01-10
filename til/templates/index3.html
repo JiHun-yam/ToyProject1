@@ -72,6 +72,10 @@
             background-color: #555;
             color: white;
          }
+         #vlog_link {
+            text-decoration: none;
+            color: rgb(32, 37, 42);
+         }
       </style>
       <script>
          $(document).ready(function () {
@@ -90,8 +94,9 @@
                      let like = rows[i]["like"];
                      let name = rows[i]["name"];
                      let address = rows[i]["vlog_url"];
+                     let title = rows[i]["title"];
 
-                     rank[i] = [like, name, address];
+                     rank[i] = [like, name, address, title];
                   }
 
                   let sortedRank = rank.sort((a, b) => {
@@ -108,13 +113,14 @@
                      let like = sortedRank[i][0];
                      let name = sortedRank[i][1];
                      let address = sortedRank[i][2];
+                     let title = sortedRank[i][3];
                      console.log(like);
 
                      let temp_html = `
                         <tr>
                             <th scope="row">${count}</th>
                             <td>${name}</td>
-                            <td>${address}</td>
+                            <td ><a href='${address}' id="vlog_link">${title}</a></td>
                             <td>${like}</td>
                         </tr>
 
@@ -144,7 +150,7 @@
                <tr>
                   <th scope="col">#</th>
                   <th scope="col">이름</th>
-                  <th scope="col">블로그 주소</th>
+                  <th scope="col">제목</th>
                   <th scope="col">좋아요 수</th>
                </tr>
             </thead>
