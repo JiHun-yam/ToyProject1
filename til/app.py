@@ -37,15 +37,30 @@ def rank_get():
 @app.route("/til", methods=["POST"])
 def blog_post():
     name_receive = request.form['name_give']
-    address_receive = request.form['address_give']
+    vlog_url_receive = request.form['vlog_url_give']
+    comment5_receive = request.form['comment5_give']
     count = list(db.til.find({},{'_id':False}))
     num = len(count) + 1
+    
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    data = requests.get(vlog_url_receive, headers=headers)
+
+    soup = BeautifulSoup(data.text, 'html.parser')
+
+    title_receive = soup.select_one('meta[property="og:title"]')['content']
+    img_receive = soup.select_one('meta[property="og:image"]')['content']
+    desc_receive = soup.select_one('meta[property="og:description"]')['content']
 
     doc = {
         'name': name_receive,
-        'address': address_receive,
         'num': num,
-        'like': 0
+        'like': 0,
+        'title': title_receive,
+        'vlog_url': vlog_url_receive,
+        'comment5': comment5_receive,
+        'img': img_receive,
+        'desc': desc_receive
     }
 
     db.til.insert_one(doc)
