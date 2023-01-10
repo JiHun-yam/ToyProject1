@@ -72,16 +72,21 @@
             align-items: center;
             justify-content: center;
         }
+
+        .comment5-box {
+            margin-top: 10px;
+        }
     </style>
     <script>
         function posting() {
             let name = $('#name').val()
             let address = $('#address').val()
+            let comment5 = $('#comment5').val()
 
             $.ajax({
                 type: 'POST',
                 url: '/til',
-                data: {name_give: name, address_give: address},
+                data: {name_give: name, address_give: address, comment5_give: comment5},
                 success: function (response) {
                     alert(response['msg'])
                     window.location.reload();
@@ -106,12 +111,19 @@
 <div class="mypost" id="post-box">
     <div class="form-floating mb-3">
         <input id="name" type="email" class="form-control" placeholder="name@example.com">
-        <label>이름</label>
+        <label>작성자</label>
     </div>
     <div class="form-floating">
         <textarea id="address" class="form-control" placeholder="Leave a comment here"></textarea>
         <label for="floatingTextarea2">블로그 주소</label>
     </div>
+    <div class="comment5-box">
+        <div class="form-floating">
+            <textarea id="comment5" class="form-control" placeholder="Leave a comment here"></textarea>
+            <label for="floatingTextarea2">간단한 설명글</label>
+        </div>
+    </div>
+
     <div class="mybtns">
         <button type="button" onclick="posting()" class="btn btn-dark">기록하기</button>
     </div>

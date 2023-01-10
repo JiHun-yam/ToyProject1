@@ -66,6 +66,7 @@
         }
     </style>
     <script>
+
         $(document).ready(function () {
             listing();
         });
@@ -82,6 +83,7 @@
                         let address = rows[i]['address']
                         let num = rows[i]['num']
                         let like = rows[i]['like']
+                        let comment5 = rows[i]['comment5']
 
                         let temp_html = `
                         <div class="mycards">
@@ -91,6 +93,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">${name}</h5>
                                     <p class="card-text">${address}</p>
+                                    <p class="card-text">${comment5}</p>
                                     <button class="btn btn-primary" onclick="like(${num})" type="submit">Like</button>
                                     <button class="btn btn-primary" type="submit">comment</button>
                                 </div>
