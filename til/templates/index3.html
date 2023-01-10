@@ -46,6 +46,19 @@
             box-shadow: 0px 0px 3px 0px gray;
          }
 
+         th {
+             width: 20px;
+         }
+
+         td {
+             vertical-align: center;
+         }
+
+         .like {
+             width: 70px;
+             text-align: center;
+         }
+
          .menu > ul {
             margin: 0;
             padding: 0;
@@ -114,16 +127,14 @@
                      let name = sortedRank[i][1];
                      let address = sortedRank[i][2];
                      let title = sortedRank[i][3];
-                     console.log(like);
 
                      let temp_html = `
                         <tr>
                             <th scope="row">${count}</th>
                             <td>${name}</td>
                             <td ><a href='${address}' id="vlog_link">${title}</a></td>
-                            <td>${like}</td>
+                            <td class="like">${like}</td>
                         </tr>
-
                         `;
                      $("#rank").append(temp_html);
                   }
