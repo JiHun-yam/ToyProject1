@@ -44,13 +44,28 @@ def blog_post():
     
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
-    data = requests.get(vlog_url_receive, headers=headers)
+    
 
     soup = BeautifulSoup(data.text, 'html.parser')
+    
+    naver_url = vlog_url_receive
 
-    title_receive = soup.select_one('meta[property="og:title"]')['content']
-    img_receive = soup.select_one('meta[property="og:image"]')['content']
-    desc_receive = soup.select_one('meta[property="og:description"]')['content']
+    test = naver_url.split('.')
+
+    if test[1] == "naver":
+      naver_url_iframe = soup.select_one('iframe#mainFrame')['src']
+      naver_blog_url = "http://blog.naver.com" + naver_url_iframe
+      
+      data = requests.get(naver_blog_url, headers=headers)
+
+      title_receive = soup.select_one('meta[property="og:title"]')['content']
+      img_receive = soup.select_one('meta[property="og:image"]')['content']
+      desc_receive = soup.select_one('meta[property="og:description"]')['content']
+    else:
+      data = requests.get(vlog_url_receive, headers=headers)
+      title_receive = soup.select_one('meta[property="og:title"]')['content']
+      img_receive = soup.select_one('meta[property="og:image"]')['content']
+      desc_receive = soup.select_one('meta[property="og:description"]')['content']
 
     doc = {
         'name': name_receive,
