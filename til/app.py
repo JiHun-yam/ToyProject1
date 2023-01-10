@@ -35,12 +35,14 @@ def blog_post():
     address_receive = request.form['address_give']
     count = list(db.til.find({},{'_id':False}))
     num = len(count) + 1
+    comment5_receive = request.form['comment5_give']
 
     doc = {
         'name': name_receive,
         'address': address_receive,
         'num': num,
-        'like': 0
+        'like': 0,
+        'comment5': comment5_receive
     }
 
     db.til.insert_one(doc)
