@@ -127,7 +127,6 @@
                      let name = sortedRank[i][1];
                      let address = sortedRank[i][2];
                      let title = sortedRank[i][3];
-                     console.log(like);
 
                      let temp_html = `
                         <tr>
@@ -136,7 +135,6 @@
                             <td ><a href='${address}' id="vlog_link">${title}</a></td>
                             <td class="like">${like}</td>
                         </tr>
-
                         `;
                      $("#rank").append(temp_html);
                   }
