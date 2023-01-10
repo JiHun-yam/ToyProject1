@@ -63,6 +63,56 @@
         }
     </style>
     <script>
+        $(document).ready(function () {
+            listing();
+        });
+
+        function listing() {
+            $.ajax({
+                type: 'GET',
+                url: '/ranking',
+                data: {},
+                success: function (response) {
+                    let rows = response['tils']
+                    let rank = Array.from(Array(rows.length), () => new Array(3))
+                    for (let i = 0; i < rows.length; i++) {
+                        let like = rows[i]['like']
+                        let name = rows[i]['name']
+                        let address = rows[i]['address']
+
+                        rank[i] = [like, name, address]
+                    }
+
+                    let sortedRank = rank.sort((a, b) => {
+                        if (a[0] === b[0]) {
+                            return a[1] < b[1] ? -1 : a[1] > b[0] ? 1 : 0;
+                        } else {
+                            return b[0] - a[0];
+                        }
+                    })
+
+                    let count = 0;
+                    for (let i = 0; i < sortedRank.length; i++) {
+                        count++;
+                        let like = sortedRank[i][0]
+                        let name = sortedRank[i][1]
+                        let address = sortedRank[i][2]
+                        console.log(like)
+
+                        let temp_html = `
+                        <tr>
+                            <th scope="row">${count}</th>
+                            <td>${name}</td>
+                            <td>${address}</td>
+                            <td>${like}</td>
+                        </tr>
+
+                        `
+                        $('#rank').append(temp_html);
+                    }
+                }
+            })
+        }
     </script>
 </head>
 
@@ -87,24 +137,7 @@
             <th scope="col">좋아요 수</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+        <tbody id="rank">
         </tbody>
     </table>
 </div>
